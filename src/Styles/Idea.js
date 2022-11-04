@@ -7,10 +7,7 @@ const ideaStyles = createUseStyles({
         margin: 10,
         boxShadow: "1px 1px 5px #888888",
         float: "left",
-        cursor: "pointer",
-        ':hover' : {
-            backgroundColor: "#aaaaaa"
-        }
+        cursor: "pointer"
     },
     title: {
         fontSize: 16,

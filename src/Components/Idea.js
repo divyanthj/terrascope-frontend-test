@@ -65,7 +65,7 @@ function Idea({ id, title, body, createdAt, onDeleteIdea, onUpdateIdea, onAddIde
             onFocus={() => handleTitleFocus(true)}
             onBlur={() => handleTitleFocus(false)}></input>
         {/* Date Label */}
-        <div className={classes.createdAt}>{"Created on " + (new Date(createdAt * 1000))}</div>
+        <div className={classes.createdAt}>{"Created on " + (new Date(createdAt * 1000).toLocaleString())}</div>
         {/* Body Input */}
         <textarea className={classes.body + " " + (isBodyFocused && classes.bodyFocused)} 
             placeholder={"Idea Body"}
@@ -87,7 +87,7 @@ function Idea({ id, title, body, createdAt, onDeleteIdea, onUpdateIdea, onAddIde
     
     <div className={classes.ideaTile} onClick={() => handleCreateNewIdea()}>
         {/* Add new Idea Button */}
-        <h2>+</h2>
+        <h1>+</h1>
     </div>)
 }
 

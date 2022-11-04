@@ -15,7 +15,6 @@ function App() {
       
       localStorage.setItem("ideas", JSON.stringify(result));
       setIdeas(JSON.parse(localStorage.getItem("ideas")));
-      console.log("Result", result);
     }).catch(error => {
       console.log("Error fetching ideas", error);
     })
@@ -85,11 +84,10 @@ function App() {
       title: "",
       body: "",
       id: JSON.stringify(ideas.length + 1),
-      created_at: Math.floor(currentDate)
+      created_date: Math.floor(currentDate)
     }
     
     ideas.push(idea);
-    console.log("New idea", ideas);
     localStorage.setItem("ideas", JSON.stringify(ideas));
     setIdeas(JSON.parse(localStorage.getItem("ideas")));
   }
