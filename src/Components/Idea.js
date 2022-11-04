@@ -57,7 +57,7 @@ function Idea({ id, title, body, createdAt, onDeleteIdea, onUpdateIdea, onAddIde
     return (!isEmpty ? <div className={classes.ideaTile} onMouseEnter={() => setIsDeleteShown(true)} onMouseLeave={() => setIsDeleteShown(false)}>
         {/* Title input */}
         <input 
-            placeholder={"Title"}
+            placeholder={"Title Text"}
             className={classes.title + " " + (isTitleFocused && classes.titleFocused)} 
             ref={titleInput}
             value={ideaTitle}
@@ -68,11 +68,11 @@ function Idea({ id, title, body, createdAt, onDeleteIdea, onUpdateIdea, onAddIde
         <div className={classes.createdAt}>{"Created on " + (new Date(createdAt * 1000).toLocaleString())}</div>
         {/* Body Input */}
         <textarea className={classes.body + " " + (isBodyFocused && classes.bodyFocused)} 
-            placeholder={"Idea Body"}
+            placeholder={"Body Text"}
             value={ideaBody}
             onChange={(e) => handleBodyChange(e.target.value)}
             onFocus={() => handleBodyFocus(true)}
-            onBlur={() => handleBodyFocus(false)} rows={4}></textarea>
+            onBlur={() => handleBodyFocus(false)} rows={2}></textarea>
         {
             /* Character count Label*/
             isBodyFocused && 
