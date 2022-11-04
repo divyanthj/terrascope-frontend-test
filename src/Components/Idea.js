@@ -1,58 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { createUseStyles } from 'react-jss';
 import  MIN_CHARACTERS  from "../Constants/mincharacters";
-
-
-const styles = createUseStyles({
-    ideaTile: {
-        width: 200,
-        height: 200,
-        margin: 10,
-        boxShadow: "1px 1px 5px #888888",
-        float: "left",
-        cursor: "pointer",
-        ':hover' : {
-            backgroundColor: "#aaaaaa"
-        }
-    },
-    title: {
-        fontSize: 16,
-        fontWeight: 600,
-        width: 180,
-        margin: 10,
-        border: 0
-    },
-    titleFocused: {
-        outlineColor: "#aaaaaa"
-    },
-    body: {
-        padding: 10,
-        border: 0
-    },
-    bodyFocused: {
-        outlineColor: "#aaaaaa"
-    },
-    createdAt: {
-        fontSize: 9,
-        color: "#888888"
-    },
-    deleteButton: {
-        boxShadow: "1px 1px 3px #888888",
-        borderRadius: 3,
-        width: 30,
-        height: 30,
-        float: "right",
-        margin: 10,
-        background: "grey",
-        color: "white"
-    },
-    characterCounter: {
-        fontSize: 12,
-        color: "#888888",
-        float: "left",
-        margin: 10
-    }
-})
+import ideaStyles from "../Styles/Idea";
 
 function Idea({ id, title, body, createdAt, onDeleteIdea, onUpdateIdea, onAddIdea }) {
     const isEmpty = id === undefined;
@@ -62,11 +11,11 @@ function Idea({ id, title, body, createdAt, onDeleteIdea, onUpdateIdea, onAddIde
     const [ isBodyFocused , setIsBodyFocused ] = useState(false);
     const [ ideaTitle, setIdeaTitle ] = useState(title);
     const [ ideaBody, setIdeaBody ] = useState(body);
+
     const titleInput = useRef();
-    const classes = styles();
+    const classes = ideaStyles();
 
     const handleDelete = (id) => {
-        console.log("Deleting ", id);
         onDeleteIdea(id);
     }
 
@@ -94,7 +43,6 @@ function Idea({ id, title, body, createdAt, onDeleteIdea, onUpdateIdea, onAddIde
     }
 
     const handleCreateNewIdea = () => {
-        console.log("Creating new idea");
         onAddIdea();
     }
 
@@ -107,6 +55,7 @@ function Idea({ id, title, body, createdAt, onDeleteIdea, onUpdateIdea, onAddIde
 
 
     return (!isEmpty ? <div className={classes.ideaTile} onMouseEnter={() => setIsDeleteShown(true)} onMouseLeave={() => setIsDeleteShown(false)}>
+        {/* Title input */}
         <input 
             placeholder={"Title"}
             className={classes.title + " " + (isTitleFocused && classes.titleFocused)} 
@@ -115,7 +64,9 @@ function Idea({ id, title, body, createdAt, onDeleteIdea, onUpdateIdea, onAddIde
             onChange={(e) => handleTitleChange(e.target.value)}
             onFocus={() => handleTitleFocus(true)}
             onBlur={() => handleTitleFocus(false)}></input>
+        {/* Date Label */}
         <div className={classes.createdAt}>{"Created on " + (new Date(createdAt * 1000))}</div>
+        {/* Body Input */}
         <textarea className={classes.body + " " + (isBodyFocused && classes.bodyFocused)} 
             placeholder={"Idea Body"}
             value={ideaBody}
@@ -123,15 +74,19 @@ function Idea({ id, title, body, createdAt, onDeleteIdea, onUpdateIdea, onAddIde
             onFocus={() => handleBodyFocus(true)}
             onBlur={() => handleBodyFocus(false)} rows={4}></textarea>
         {
+            /* Character count Label*/
             isBodyFocused && 
             bodyCharacterCount < MIN_CHARACTERS.BODY && 
             <div className={classes.characterCounter}>{"Min " + bodyCharacterCount + "/" + MIN_CHARACTERS.BODY}</div>}
         {
+            /* Delete Button */
             isDeleteShown && <div className={classes.deleteButton} onClick={() => handleDelete(id)}>
                 <i className="fa fa-trash" ></i>
             </div>}
     </div> : 
+    
     <div className={classes.ideaTile} onClick={() => handleCreateNewIdea()}>
+        {/* Add new Idea Button */}
         <h2>+</h2>
     </div>)
 }
