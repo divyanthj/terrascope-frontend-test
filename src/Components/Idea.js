@@ -39,7 +39,7 @@ function Idea({ id, title, body, createdAt, onDeleteIdea, onUpdateIdea, onAddIde
 
     const handleBodyFocus = (isFocused) => {
         setIsBodyFocused(isFocused);
-        if(!isFocused) handleUpdate(title, body);
+        if(!isFocused) handleUpdate(id, title, body);
     }
 
     const handleCreateNewIdea = () => {

@@ -1,24 +1,27 @@
 const { randomUUID } = require('crypto');
 var express = require('express');
 var router = express.Router();
-var fs = require('fs');
 var jsonReader = require('../helpers/jsonReader');
-
+var jsonWriter = require('../helpers/jsonWriter')
+var DB_PATH = require('../constants/dbPath.js')
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  jsonReader('./server/data/db.json', (error, result) => {
+  jsonReader(DB_PATH, (error, result) => {
+    
     if(error) {
       console.log("Error reading file", error);
       return
     }
-    res.send(result.ideas)
+    result.success = true;
+    res.send(result);
   })
 });
 
+/* GET users listing by id. */
 router.get('/:id', function(req, res, next) {
-
   if(req.params.id === "new") {
+    /* Generate new user for listing. */
     // Hacky, I know. Still need to learn more about route handling
     res.send({
       id: randomUUID(),
@@ -27,7 +30,7 @@ router.get('/:id', function(req, res, next) {
     return;
   }
 
-  jsonReader('./server/data/db.json', (error, result) => {
+  jsonReader(DB_PATH, (error, result) => {
     if(error) {
       console.log("Error reading file", error);
       return
@@ -37,5 +40,6 @@ router.get('/:id', function(req, res, next) {
     }))
   })
 });
+
 
 module.exports = router;
